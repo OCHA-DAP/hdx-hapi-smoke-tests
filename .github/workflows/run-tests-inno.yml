@@ -1,4 +1,4 @@
-name: Run tests on stage
+name: Run tests on inno
 
 on:
     workflow_dispatch:
@@ -25,4 +25,4 @@ jobs:
         run: pytest
         env:
             TESTS_SPREADSHEET_URL: ${{ vars.TESTS_SPREADSHEET_URL }}
-            BASE_URL: ${{ secrets.BASE_URL_STAGE }}
+            BASE_URL: ${{ secrets.BASE_URL_INNO }}

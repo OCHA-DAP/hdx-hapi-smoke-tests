@@ -25,4 +25,4 @@ jobs:
         run: pytest
         env:
             TESTS_SPREADSHEET_URL: ${{ vars.TESTS_SPREADSHEET_URL }}
-            BASE_URL: ${{ vars.BASE_URL_DEMO }}
+            BASE_URL: ${{ secrets.BASE_URL_DEMO }}
