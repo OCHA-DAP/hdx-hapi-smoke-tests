@@ -26,3 +26,4 @@ jobs:
         env:
             TESTS_SPREADSHEET_URL: ${{ vars.TESTS_SPREADSHEET_URL }}
             BASE_URL: ${{ secrets.BASE_URL_INNO }}
+            HAPI_APP_IDENTIFIER: ${{ secrets.HAPI_APP_IDENTIFIER }}
