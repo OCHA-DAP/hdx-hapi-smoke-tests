@@ -51,3 +51,4 @@ def test_csv_rest_api():
     csv_rows = list(csv_reader)
 
     assert len(csv_rows) > 25
+
