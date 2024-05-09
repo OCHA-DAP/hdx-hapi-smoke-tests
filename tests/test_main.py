@@ -19,14 +19,22 @@ def test_json_rest_api(description, test_info):
 
     relative_url = test_info[HEADER_API_CALL][1:] if test_info[HEADER_API_CALL].startswith('/') else test_info[
         HEADER_API_CALL]
-    endpoint_url = f'{BASE_URL}{relative_url}&app_identifier={HAPI_APP_IDENTIFIER}'
+
+    if '?' in relative_url:
+        relative_url += f'&app_identifier={HAPI_APP_IDENTIFIER}'
+    else:
+        relative_url += f'?app_identifier={HAPI_APP_IDENTIFIER}'
+    endpoint_url = f'{BASE_URL}{relative_url}'
+
     response = requests.get(endpoint_url)
     object_list = response.json()
 
-    assert response.status_code == 200
+    assert response.status_code == 200, ", url:" + endpoint_url
 
     for rule in rules:
-        assert rule.operator(rule.input_list_builder(object_list), rule.value), rule.description
+        output_description = rule.description + ", url:" + endpoint_url
+        assert rule.operator(rule.input_list_builder(object_list), rule.value), output_description
+
 
 
 def test_csv_rest_api():
