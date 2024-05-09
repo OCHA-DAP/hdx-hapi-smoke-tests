@@ -19,7 +19,7 @@ def test_json_rest_api(description, test_info):
     rules = parse_rules(test_info[HEADER_RULES])
 
     relative_url = test_info[HEADER_API_CALL][1:] if test_info[HEADER_API_CALL].startswith('/') else test_info[HEADER_API_CALL]
-    endpoint_url = f'{BASE_URL}{relative_url}'
+    endpoint_url = f'{BASE_URL}{relative_url}&app_identifier=aGFwaV90ZXN0OmhhcGlAaHVtZGF0YS5vcmc='
     response = requests.get(endpoint_url)
     object_list = response.json()
 
@@ -29,7 +29,7 @@ def test_json_rest_api(description, test_info):
         assert rule.operator(rule.input_list_builder(object_list), rule.value), rule.description
 
 def test_csv_rest_api():
-    endpoint_url = f'{BASE_URL}api/admin1?output_format=csv'
+    endpoint_url = f'{BASE_URL}api/admin1?output_format=csv&app_identifier=aGFwaV90ZXN0OmhhcGlAaHVtZGF0YS5vcmc='
     response = requests.get(endpoint_url)
 
     assert response.status_code == 200
