@@ -27,7 +27,8 @@ def test_json_rest_api(description, test_info):
     endpoint_url = f'{BASE_URL}{relative_url}'
 
     response = requests.get(endpoint_url)
-    object_list = response.json()
+    response_dict = response.json()
+    object_list = response_dict.get('data',[])
 
     assert response.status_code == 200, ", url:" + endpoint_url
 
