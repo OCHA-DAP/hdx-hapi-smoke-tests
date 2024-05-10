@@ -18,6 +18,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Logging running timestamp
+        run: echo "The current timestamp is $(date)" > test_timestamp_demo.txt
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        name: Commit updated sources
+        with:
+          commit_message: automatic - timestamp log
+
       - name: Install requirements
         run: |
           pip install -r requirements.txt
