@@ -88,11 +88,21 @@ def _comparison_parser(rule_body, comparison_subject, entire_rule):
         rule_value = rule_body[1:].strip()
         rule_value = int(rule_value) if rule_value.isdigit() else rule_value.replace('"', '')
         rule_description = f'{comparison_subject} should be equal to {rule_value}'
+    elif rule_body.startswith('>='):
+        rule_operator = greater_equal_than_operator
+        rule_value = rule_body[2:].strip()
+        rule_value = int(rule_value) if rule_value.isdigit() else rule_value.replace('"', '')
+        rule_description = f'{comparison_subject} should be greater or equal than {rule_value}'
     elif rule_body.startswith('>'):
         rule_operator = greater_than_operator
         rule_value = rule_body[1:].strip()
         rule_value = int(rule_value) if rule_value.isdigit() else rule_value.replace('"', '')
         rule_description = f'{comparison_subject} should be greater than {rule_value}'
+    elif rule_body.startswith('<='):
+        rule_operator = less_equal_than_operator
+        rule_value = rule_body[2:].strip()
+        rule_value = int(rule_value) if rule_value.isdigit() else rule_value.replace('"', '')
+        rule_description = f'{comparison_subject} should be less or equal than {rule_value}'
     elif rule_body.startswith('<'):
         rule_operator = less_than_operator
         rule_value = rule_body[1:].strip()
@@ -120,6 +130,16 @@ def greater_than_operator(input_list: List, value: int) -> bool:
             return False
     return True
 
+def greater_equal_than_operator(input_list: List, value: int) -> bool:
+    try:
+        for item in input_list:
+            if item is None or item < value:
+                return False
+    except Exception as ex:
+        v = value
+        return False
+    return True
+
 
 def less_than_operator(input_list: List, value: int) -> bool:
     for item in input_list:
@@ -127,6 +147,11 @@ def less_than_operator(input_list: List, value: int) -> bool:
             return False
     return True
 
+def less_equal_than_operator(input_list: List, value: int) -> bool:
+    for item in input_list:
+        if item is None or item > value:
+            return False
+    return True
 
 def all_have_properties_operator(input_list: List, fields: Set) -> bool:
     for item in input_list:
