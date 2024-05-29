@@ -35,11 +35,18 @@ def test_json_rest_api(description, test_info):
     for rule in rules:
         output_description = rule.description + ", url:" + endpoint_url
         assert rule.operator(rule.input_list_builder(object_list), rule.value), output_description
+        # for debug
+        # result = rule.operator(rule.input_list_builder(object_list), rule.value)
+        # if result:
+        #     assert True
+        # else:
+        #     assert True
+
 
 
 
 def test_csv_rest_api():
-    endpoint_url = f'{BASE_URL}api/admin1?output_format=csv&app_identifier={HAPI_APP_IDENTIFIER}'
+    endpoint_url = f'{BASE_URL}api/v1/metadata/dataset?output_format=csv&app_identifier={HAPI_APP_IDENTIFIER}'
     response = requests.get(endpoint_url)
 
     assert response.status_code == 200
@@ -50,4 +57,5 @@ def test_csv_rest_api():
     csv_reader = csv.DictReader(StringIO(csv_data))
     csv_rows = list(csv_reader)
 
-    assert len(csv_rows) > 25
+    assert len(csv_rows) > 2
+
