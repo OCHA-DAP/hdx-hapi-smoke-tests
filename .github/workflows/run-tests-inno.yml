@@ -3,7 +3,7 @@ name: Run tests on inno
 on:
     workflow_dispatch:
     schedule:
-        - cron: '8 7 * * *'
+        - cron: '9 5 * * *'
 
 jobs:
   test:
