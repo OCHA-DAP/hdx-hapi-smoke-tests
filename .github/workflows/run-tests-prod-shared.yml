@@ -1,0 +1,37 @@
+name: Run tests on shared prod
+
+on:
+    workflow_dispatch:
+    schedule:
+        - cron: '12 5 * * *'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Logging running timestamp
+        run: echo "The current timestamp is $(date)" > test_timestamp_inno.txt
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        name: Commit updated sources
+        with:
+          commit_message: automatic - timestamp log
+
+      - name: Install requirements
+        run: |
+          pip install -r requirements.txt
+      - name: Test with pytest
+        run: pytest
+        env:
+            TESTS_SPREADSHEET_URL: ${{ vars.TESTS_SPREADSHEET_URL }}
+            BASE_URL: ${{ secrets.BASE_URL_PROD_SHARED }}
+            HAPI_APP_IDENTIFIER: ${{ secrets.HAPI_APP_IDENTIFIER }}
