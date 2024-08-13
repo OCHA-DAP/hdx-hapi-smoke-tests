@@ -1,4 +1,8 @@
+import json
 import pytest
+
+from urllib import request
+
 from util.config import BASE_URL, HAPI_APP_IDENTIFIER
 
 from util.requests import fetch_data_from_hapi
@@ -94,3 +98,47 @@ def test_duplicates_humanitarian_needs_hnd_new_endpoint():
     results_set = set(results)
 
     assert len(results) == len(list(results_set))
+
+
+# ENDPOINT, Full count (2024-08-13), Country filter, Filtered count
+ENDPOINT_ROUTER_LIST = [
+    ("/api/v1/affected-people/refugees", 580074, "HND", 9140),
+    ("/api/v1/affected-people/humanitarian-needs", 279811, "HND", 2589),
+    ("/api/v1/coordination-context/operational-presence", 40472, "", None),
+    ("/api/v1/coordination-context/funding", 431, "", None),
+    ("/api/v1/coordination-context/conflict-event", 1544173, "HTI", 10081),
+    ("/api/v1/coordination-context/national-risk", 26, "", None),
+    ("/api/v1/food/food-security", 119876, "", None),
+    ("/api/v1/food/food-price", 1094401, "HTI", 15948),
+    ("/api/v1/population-social/population", 237337, "", None),
+    ("/api/v1/population-social/poverty-rate", 630, "", None),
+    ("/api/v1/metadata/dataset", 167, "", None),
+    ("/api/v1/metadata/resource", 257, "", None),
+    ("/api/v1/metadata/location", 250, "", None),
+    ("/api/v1/metadata/admin1", 455, "", None),
+    ("/api/v1/metadata/admin2", 5458, "", None),
+    ("/api/v1/metadata/currency", 128, "", None),
+    ("/api/v1/metadata/org", 2531, "", None),
+    ("/api/v1/metadata/org-type", 19, "", None),
+    ("/api/v1/metadata/sector", 20, "", None),
+    ("/api/v1/metadata/wfp-commodity", 1101, "", None),
+    ("/api/v1/metadata/wfp-market", 4144, "", None),
+]
+
+
+def test_endpoint_list():
+    with request.urlopen(f"{BASE_URL}/openapi.json") as openapi_json_url:
+        openapi_json = json.load(openapi_json_url)
+
+    openapi_paths = set(list(openapi_json["paths"].keys()))
+    openapi_paths.remove("/api/v1/encode_app_identifier")
+    openapi_paths.remove("/api/v1/util/version")
+
+    endpoint_paths = {x[0] for x in ENDPOINT_ROUTER_LIST}
+
+    assert endpoint_paths == openapi_paths
+
+
+@pytest.mark.parametrize("endpoint_router", ENDPOINT_ROUTER_LIST)
+def test_for_duplicates(endpoint_router):
+    pass
