@@ -7,6 +7,8 @@ from util.config import BASE_URL, HAPI_APP_IDENTIFIER
 
 from util.requests import fetch_data_from_hapi
 
+from collections import Counter
+
 # ENDPOINT, Full count (2024-08-13), Country filter, Filtered count
 ENDPOINT_ROUTER_LIST = [
     ("/api/v1/affected-people/refugees", 580074, "HND", 9140),
@@ -32,6 +34,9 @@ ENDPOINT_ROUTER_LIST = [
     ("/api/v1/metadata/wfp-market", 4141, "", None),
 ]
 
+# BASE_URL = BASE_URL.replace("hapi", "hapi-temporary")
+# BASE_URL = "http://localhost:8844/"
+
 
 def test_fetch_data_from_hapi_with_paging():
     theme = "metadata/admin2"
@@ -48,85 +53,8 @@ def test_fetch_data_from_hapi_with_paging():
     assert results_1000 == results_10000
 
 
-def test_duplicates_conflict_event_hti_legacy_endpoint():
-    theme = "coordination-context/conflict-event"
-    country = "HTI"
-
-    query_url = (
-        f"{BASE_URL}api/v1/{theme}?"
-        f"output_format=csv"
-        f"&location_code={country}"
-        f"&app_identifier={HAPI_APP_IDENTIFIER}"
-    )
-
-    results = fetch_data_from_hapi(query_url, limit=1000)
-
-    results_set = set(results)
-
-    assert len(results) == len(list(results_set))
-
-
-def test_duplicates_humanitarian_needs_hnd_legacy_endpoint():
-    theme = "affected-people/humanitarian-needs"
-    country = "HND"
-
-    query_url = (
-        f"{BASE_URL}api/v1/{theme}?"
-        f"output_format=csv"
-        f"&location_code={country}"
-        f"&app_identifier={HAPI_APP_IDENTIFIER}"
-    )
-
-    results = fetch_data_from_hapi(query_url, limit=1000)
-
-    results_set = set(results)
-
-    assert len(results) == len(list(results_set))
-
-
-@pytest.mark.xfail
-def test_duplicates_conflict_event_hti_new_endpoint():
-    theme = "coordination-context/conflict-event"
-    country = "HTI"
-
-    base_url = BASE_URL.replace("hapi", "hapi-temporary")
-    query_url = (
-        f"{base_url}api/v1/{theme}?"
-        f"output_format=csv"
-        f"&location_code={country}"
-        f"&app_identifier={HAPI_APP_IDENTIFIER}"
-    )
-
-    results = fetch_data_from_hapi(query_url, limit=1000)
-
-    results_set = set(results)
-
-    assert len(results) == len(list(results_set))
-
-
-@pytest.mark.xfail
-def test_duplicates_humanitarian_needs_hnd_new_endpoint():
-    theme = "affected-people/humanitarian-needs"
-    country = "HND"
-
-    base_url = BASE_URL.replace("hapi", "hapi-temporary")
-
-    query_url = (
-        f"{base_url}api/v1/{theme}?"
-        f"output_format=csv"
-        f"&location_code={country}"
-        f"&app_identifier={HAPI_APP_IDENTIFIER}"
-    )
-
-    results = fetch_data_from_hapi(query_url, limit=1000)
-
-    results_set = set(results)
-
-    assert len(results) == len(list(results_set))
-
-
 def test_endpoint_list_against_openapi_definition():
-    with request.urlopen(f"{BASE_URL}/openapi.json") as openapi_json_url:
+    with request.urlopen(f"{BASE_URL}openapi.json") as openapi_json_url:
         openapi_json = json.load(openapi_json_url)
 
     openapi_paths = set(list(openapi_json["paths"].keys()))
@@ -161,4 +89,9 @@ def test_for_duplicates_all_endpoints_parametrically(endpoint_router):
 
     results_set = set(results)
 
+    if len(results) != len(list(results_set)):
+        counter = Counter(results)
+        for k, v in counter.items():
+            if v != 1:
+                print(k, v, flush=True)
     assert len(results) == len(list(results_set))
