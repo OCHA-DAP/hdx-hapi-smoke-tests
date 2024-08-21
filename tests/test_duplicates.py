@@ -9,29 +9,29 @@ from util.requests import fetch_data_from_hapi
 
 from collections import Counter
 
-# ENDPOINT, Full count (2024-08-13), Country filter, Filtered count
+# ENDPOINT, Country filter, Full count (2024-08-13), Filtered count
 ENDPOINT_ROUTER_LIST = [
-    ("/api/v1/affected-people/refugees", 580074, "HND", 9140),
-    ("/api/v1/affected-people/humanitarian-needs", 279811, "HND", 2589),
-    ("/api/v1/coordination-context/operational-presence", 40472, "", None),
-    ("/api/v1/coordination-context/funding", 434, "", None),
-    ("/api/v1/coordination-context/conflict-event", 1544173, "HTI", 10081),
-    ("/api/v1/coordination-context/national-risk", 26, "", None),
-    ("/api/v1/food/food-security", 119757, "", None),
-    ("/api/v1/food/food-price", 1094401, "HTI", 15948),
-    ("/api/v1/population-social/population", 237100, "", None),
-    ("/api/v1/population-social/poverty-rate", 630, "", None),
-    ("/api/v1/metadata/dataset", 167, "", None),
-    ("/api/v1/metadata/resource", 257, "", None),
-    ("/api/v1/metadata/location", 250, "", None),
-    ("/api/v1/metadata/admin1", 455, "", None),
-    ("/api/v1/metadata/admin2", 5458, "", None),
-    ("/api/v1/metadata/currency", 128, "", None),
-    ("/api/v1/metadata/org", 2531, "", None),
-    ("/api/v1/metadata/org-type", 19, "", None),
-    ("/api/v1/metadata/sector", 20, "", None),
-    ("/api/v1/metadata/wfp-commodity", 1101, "", None),
-    ("/api/v1/metadata/wfp-market", 4141, "", None),
+    ("/api/v1/affected-people/refugees", "HND"),  # , 580074, 9140
+    ("/api/v1/affected-people/humanitarian-needs", "HND"),  # 279811, 2589
+    ("/api/v1/coordination-context/operational-presence", ""),  # 40472,
+    ("/api/v1/coordination-context/funding", ""),  # 434
+    ("/api/v1/coordination-context/conflict-event", "HTI"),  # 1544173, 10081
+    ("/api/v1/coordination-context/national-risk", ""),  # 26,
+    ("/api/v1/food/food-security", ""),  # 119757,
+    ("/api/v1/food/food-price", "HTI"),  # 1094401, 15948
+    ("/api/v1/population-social/population", ""),  # 237100,
+    ("/api/v1/population-social/poverty-rate", ""),  # 630,
+    ("/api/v1/metadata/dataset", ""),  # 167,
+    ("/api/v1/metadata/resource", ""),  # 257,
+    ("/api/v1/metadata/location", ""),  # 250,
+    ("/api/v1/metadata/admin1", ""),  # 455,
+    ("/api/v1/metadata/admin2", ""),  # 5458,
+    ("/api/v1/metadata/currency", ""),  # 128,
+    ("/api/v1/metadata/org", ""),  # 2531,
+    ("/api/v1/metadata/org-type", ""),  # 19,
+    ("/api/v1/metadata/sector", ""),  # 20,
+    ("/api/v1/metadata/wfp-commodity", ""),  # 1101,
+    ("/api/v1/metadata/wfp-market", ""),  # 4141,
 ]
 
 # BASE_URL = BASE_URL.replace("hapi", "hapi-temporary")
@@ -67,13 +67,18 @@ def test_endpoint_list_against_openapi_definition():
 
 
 @pytest.mark.parametrize(
-    "endpoint_router",
+    "endpoint_router, country",
     ENDPOINT_ROUTER_LIST,
-    ids=[x[0][7:] for x in ENDPOINT_ROUTER_LIST],
+    ids=[
+        x[0][7:]
+        for x in ENDPOINT_ROUTER_LIST  # Makes the labels for the parameterized tests
+    ],
 )
-def test_for_duplicates_all_endpoints_parametrically(endpoint_router):
-    theme = endpoint_router[0][1:]
-    country = endpoint_router[2]
+def test_for_duplicates_all_endpoints_parametrically(endpoint_router, country):
+    if BASE_URL.endswith("/"):
+        theme = endpoint_router[0][1:]
+    else:
+        theme = endpoint_router[0]
 
     query_url = (
         f"{BASE_URL}{theme}?"
