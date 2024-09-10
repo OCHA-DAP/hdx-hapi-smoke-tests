@@ -12,6 +12,8 @@ from util.config import (
     HAPI_APP_IDENTIFIER,
 )
 
+# BASE_URL = "http://localhost:8844/"
+
 from util.requests import download_csv, read_data_from_csv
 from util.rules import parse_rules
 
