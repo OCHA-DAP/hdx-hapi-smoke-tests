@@ -32,6 +32,7 @@ ENDPOINT_ROUTER_LIST = [
     ("/api/v1/metadata/sector", ""),  # 20,
     ("/api/v1/metadata/wfp-commodity", ""),  # 1101,
     ("/api/v1/metadata/wfp-market", ""),  # 4141,
+    ("/api/v1/metadata/data-availability", ""),
 ]
 
 # BASE_URL = BASE_URL.replace("hapi", "hapi-temporary")
@@ -50,6 +51,8 @@ def test_fetch_data_from_hapi_with_paging():
     results_1000 = fetch_data_from_hapi(query_url, limit=1000)
     results_10000 = fetch_data_from_hapi(query_url, limit=10000)
 
+    assert len(results_1000) != 0
+    assert len(results_10000) != 0
     assert results_1000 == results_10000
 
 
