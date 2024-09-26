@@ -13,6 +13,8 @@ from collections import Counter
 ENDPOINT_ROUTER_LIST = [
     ("/api/v1/affected-people/refugees", "HND"),  # , 580074, 9140
     ("/api/v1/affected-people/humanitarian-needs", "HND"),  # 279811, 2589
+    ("/api/v1/affected-people/idps", ""),
+    ("/api/v1/affected-people/returnees", ""),
     ("/api/v1/coordination-context/operational-presence", ""),  # 40472,
     ("/api/v1/coordination-context/funding", ""),  # 434
     ("/api/v1/coordination-context/conflict-event", "HTI"),  # 1544173, 10081
