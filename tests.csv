@@ -1,4 +1,4 @@
-location,Test ID,Description,Args,API call,# of results expected,Expected in each result object,Priority,Implemented?,Rules,Notes
+location,Test ID,Description,Args [NOT USED],API call,# of results expected,Expected in each result object [NOT USED],Priority,Implemented?,Rules,Notes
 refugees,ref-default,List of refugees,,/api/v1/affected-people/refugees,full page,"origin_location_code not null
 origin_location_name not null
 asylum_location_code not null
@@ -374,8 +374,13 @@ name=""United States dollar""",FALSE,TRUE,"TOTAL_COUNT=1;
 ALL_HAVE_PROPERTIES[code, name];
 ALL_VERIFY_COMPARISON[code=""USD""];
 ALL_VERIFY_COMPARISON[name=""United States Dollar""];",also tests case-insensitivity
-admin1,,,,,,,FALSE,FALSE,,
-,,,,,,,FALSE,FALSE,,
+data-availability,dat-default,List of data-availability,,/api/v1/metadata/data-availability,full page,,FALSE,TRUE,"TOTAL_COUNT>50; 
+ALL_HAVE_PROPERTIES[category, subcategory, location_code, location_name,  hapi_updated_date];",
+data-availability,dat-filtered,List of filtered data-availability,,/api/v1/metadata/data-availability?subcategory=refugees&location_code=AFG,1,,FALSE,TRUE,"TOTAL_COUNT = 1; 
+ALL_HAVE_PROPERTIES[category, subcategory, location_code, location_name,  hapi_updated_date];
+ALL_VERIFY_COMPARISON[category=""affected-people""]; 
+ALL_VERIFY_COMPARISON[location_code=""AFG""];
+ALL_VERIFY_COMPARIONS[subcategory=""refugees];",
 ,,,,,,,FALSE,FALSE,,
 ,,,,,,,FALSE,FALSE,,
 ,,,,,,,FALSE,FALSE,,
