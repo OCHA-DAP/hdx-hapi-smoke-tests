@@ -37,10 +37,6 @@ ENDPOINT_ROUTER_LIST = [
     ('/api/v1/metadata/data-availability', ''),
 ]
 
-# BASE_URL = BASE_URL.replace("hapi", "hapi-temporary")
-# BASE_URL = "http://localhost:8844/"
-BASE_URL = 'https://stage.hapi-humdata-org.ahconu.org/'
-
 
 def test_fetch_data_from_hapi_with_paging():
     theme = 'metadata/admin2'
@@ -56,6 +52,7 @@ def test_fetch_data_from_hapi_with_paging():
 
 
 def test_endpoint_list_against_openapi_definition():
+    print(f'{BASE_URL}openapi.json', flush=True)
     with request.urlopen(f'{BASE_URL}openapi.json') as openapi_json_url:
         openapi_json = json.load(openapi_json_url)
 

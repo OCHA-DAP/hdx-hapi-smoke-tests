@@ -6,6 +6,9 @@
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "charliermarsh.ruff"
     },
+    "flake8.args": [
+        "--config=pyproject.toml",
+    ],
     "ruff.enable": true,
     "ruff.importStrategy": "fromEnvironment",
     "ruff.lint.args": [

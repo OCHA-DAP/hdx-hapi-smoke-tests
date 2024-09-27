@@ -16,9 +16,6 @@ from util.config import (
 from util.requests import download_csv, read_data_from_csv
 from util.rules import parse_rules
 
-# BASE_URL = "http://localhost:8844/"
-BASE_URL = 'https://stage.hapi-humdata-org.ahconu.org/'
-
 
 DOWNLOAD_PATH = 'tests.csv'
 

@@ -380,7 +380,7 @@ data-availability,dat-filtered,List of filtered data-availability,,/api/v1/metad
 ALL_HAVE_PROPERTIES[category, subcategory, location_code, location_name,  hapi_updated_date];
 ALL_VERIFY_COMPARISON[category=""affected-people""]; 
 ALL_VERIFY_COMPARISON[location_code=""AFG""];
-ALL_VERIFY_COMPARIONS[subcategory=""refugees];",
+ALL_VERIFY_COMPARIONS[subcategory=""refugees""];",
 ,,,,,,,FALSE,FALSE,,
 ,,,,,,,FALSE,FALSE,,
 ,,,,,,,FALSE,FALSE,,
