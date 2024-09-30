@@ -1,3 +1,4 @@
+import os
 from io import StringIO
 import requests
 import pytest
@@ -12,47 +13,44 @@ from util.config import (
     HAPI_APP_IDENTIFIER,
 )
 
-# BASE_URL = "http://localhost:8844/"
-
 from util.requests import download_csv, read_data_from_csv
 from util.rules import parse_rules
 
-download_csv(TESTS_SPREADSHEET_URL, "tests.csv")
-data_all_columns = read_data_from_csv("tests.csv")
-data = [
-    [row[HEADER_DESCRIPTION], row]
-    for row in data_all_columns
-    if row[HEADER_ENABLED] == "TRUE"
-]
+
+DOWNLOAD_PATH = 'tests.csv'
+
+# if os.path.exists(DOWNLOAD_PATH):
+#     os.remove(DOWNLOAD_PATH)
+
+download_csv(TESTS_SPREADSHEET_URL, DOWNLOAD_PATH)
+data_all_columns = read_data_from_csv(DOWNLOAD_PATH)
+data = [[row[HEADER_DESCRIPTION], row] for row in data_all_columns if row[HEADER_ENABLED] == 'TRUE']
 
 
-@pytest.mark.parametrize("description, test_info", data)
+@pytest.mark.parametrize('description, test_info', data)
 def test_json_rest_api(description, test_info):
     rules = parse_rules(test_info[HEADER_RULES])
 
     relative_url = (
-        test_info[HEADER_API_CALL][1:]
-        if test_info[HEADER_API_CALL].startswith("/")
-        else test_info[HEADER_API_CALL]
+        test_info[HEADER_API_CALL][1:] if test_info[HEADER_API_CALL].startswith('/') else test_info[HEADER_API_CALL]
     )
 
-    if "?" in relative_url:
-        relative_url += f"&app_identifier={HAPI_APP_IDENTIFIER}"
+    print(relative_url, flush=True)
+    if '?' in relative_url:
+        relative_url += f'&app_identifier={HAPI_APP_IDENTIFIER}'
     else:
-        relative_url += f"?app_identifier={HAPI_APP_IDENTIFIER}"
-    endpoint_url = f"{BASE_URL}{relative_url}"
+        relative_url += f'?app_identifier={HAPI_APP_IDENTIFIER}'
+    endpoint_url = f'{BASE_URL}{relative_url}'
 
     response = requests.get(endpoint_url)
     response_dict = response.json()
-    object_list = response_dict.get("data", [])
+    object_list = response_dict.get('data', [])
 
-    assert response.status_code == 200, ", url:" + endpoint_url
+    assert response.status_code == 200, ', url:' + endpoint_url
 
     for rule in rules:
-        output_description = rule.description + ", url:" + endpoint_url
-        assert rule.operator(
-            rule.input_list_builder(object_list), rule.value
-        ), output_description
+        output_description = rule.description + ', url:' + endpoint_url
+        assert rule.operator(rule.input_list_builder(object_list), rule.value), output_description
         # for debug
         # result = rule.operator(rule.input_list_builder(object_list), rule.value)
         # if result:
@@ -62,7 +60,7 @@ def test_json_rest_api(description, test_info):
 
 
 def test_csv_rest_api():
-    endpoint_url = f"{BASE_URL}api/v1/metadata/dataset?output_format=csv&app_identifier={HAPI_APP_IDENTIFIER}"
+    endpoint_url = f'{BASE_URL}api/v1/metadata/dataset?output_format=csv&app_identifier={HAPI_APP_IDENTIFIER}'
     print(endpoint_url, flush=True)
     response = requests.get(endpoint_url)
 

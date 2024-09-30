@@ -16,3 +16,22 @@ pip install -r requirements.txt
 ```
 
 To run locally the environment variables `BASE URL` and `HAPI_APP_IDENTIFIER` need to be set, the majority of the test suite is generated from a csv file stored as a Google Sheet whose URL is included in the repo but can be overridden with the environment `TEST_SPREADSHEET_URL`.
+
+The spreadsheet has the following columns, those marked * are used by the smoke test code in this repo:
+
+* location
+* Test ID
+* Description*
+* Args [NOT USED]
+* API call*
+* \# of results expected
+* Expected in each result object [NOT USED]
+* Priority
+* Implemented?*
+* Rules*
+
+For local testing the easiest way to override the target HAPI instance is by editing the default value in this line in `util/config.py` and ensuring `BASE_URL` is not defined as an environment variable:
+
+```python
+BASE_URL = os.getenv('BASE_URL', 'https://stage.hapi-humdata-org.ahconu.org/')
+```

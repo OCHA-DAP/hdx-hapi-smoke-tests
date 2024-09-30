@@ -1,0 +1,24 @@
+[tool.ruff]
+# Allow lines to be as long as 120 characters.
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "E", 
+    "F", 
+    "Q", 
+    "INP001", # Checks for packages that are missing an __init__.py file.
+]
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "single"
+multiline-quotes = "single"
+
+[tool.ruff.format]
+# Prefer single quotes over double quotes
+quote-style = "single"
+
+
+[tool.black]
+line-length = 120
+skip-string-normalization = true
