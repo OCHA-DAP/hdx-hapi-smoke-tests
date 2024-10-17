@@ -35,7 +35,6 @@ def test_json_rest_api(description, test_info):
         test_info[HEADER_API_CALL][1:] if test_info[HEADER_API_CALL].startswith('/') else test_info[HEADER_API_CALL]
     )
 
-    print(relative_url, flush=True)
     if '?' in relative_url:
         relative_url += f'&app_identifier={HAPI_APP_IDENTIFIER}'
     else:
@@ -49,7 +48,10 @@ def test_json_rest_api(description, test_info):
     assert response.status_code == 200, ', url:' + endpoint_url
 
     for rule in rules:
-        output_description = rule.description + ', url:' + endpoint_url
+        output_description = (
+            f'\nDescription: {rule.description}\nActual value: '
+            f'{str(rule.input_list_builder(object_list))}\nURL: {endpoint_url}'
+        )
         assert rule.operator(rule.input_list_builder(object_list), rule.value), output_description
         # for debug
         # result = rule.operator(rule.input_list_builder(object_list), rule.value)
