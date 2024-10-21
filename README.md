@@ -30,8 +30,12 @@ The spreadsheet has the following columns, those marked * are used by the smoke 
 * Implemented?*
 * Rules*
 
+To put a carriage return into a cell press `Alt-enter`
+
 For local testing the easiest way to override the target HAPI instance is by editing the default value in this line in `util/config.py` and ensuring `BASE_URL` is not defined as an environment variable:
 
 ```python
 BASE_URL = os.getenv('BASE_URL', 'https://stage.hapi-humdata-org.ahconu.org/')
 ```
+
+For local running, if the test spreadsheet has been changed then tests.csv should be deleted and the tests re-discovered.

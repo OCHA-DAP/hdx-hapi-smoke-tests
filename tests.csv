@@ -98,8 +98,11 @@ ALL_VERIFY_COMPARISON[location_code=""HTI""];
 ALL_VERIFY_COMPARISON[location_name=""Haiti""];
 ALL_VERIFY_COMPARISON[admin1_code=""HT10""];
 ALL_VERIFY_COMPARISON[admin1_name=""Nippes""];
+ALL_VERIFY_COMPARISON[provider_admin1_name=""Nippes""];
 ALL_VERIFY_COMPARISON[admin2_code=""HT1024""];
-ALL_VERIFY_COMPARISON[admin2_name=""Arnaud""];","Assuming we're not backdating before 2020
+ALL_VERIFY_COMPARISON[admin2_name=""Arnaud""];
+ALL_VERIFY_COMPARISON[provider_admin2_name=""Arnaud""];
+","Assuming we're not backdating before 2020
 
 This also tests admin-level names"
 funding,fund-default,list of fundings,,/api/v1/coordination-context/funding,full page,"location_code not null
@@ -189,6 +192,7 @@ ALL_VERIFY_COMPARISON[population_in_phase>=0];
 ALL_VERIFY_COMPARISON[location_code=""NER""];
 ALL_VERIFY_COMPARISON[admin1_code=""NE008""];
 ALL_VERIFY_COMPARISON[admin1_name=""Niamey""];
+ALL_VERIFY_COMPARISON[provider_admin1_name=""Niamey""];
 ALL_VERIFY_COMPARISON[ipc_phase=""3""];
 ALL_VERIFY_COMPARISON[ipc_type=""current""];
 ALL_VERIFY_COMPARISON[population_fraction_in_phase>=0];",Also tests admin1_name from CODs
@@ -244,7 +248,8 @@ ALL_VERIFY_COMPARISON[population>0];
 ALL_VERIFY_COMPARISON[location_code=""SDN""];
 ALL_VERIFY_COMPARISON[location_name=""Sudan""];
 ALL_VERIFY_COMPARISON[admin1_code=""SD18""];
-ALL_VERIFY_COMPARISON[admin1_name=""West Kordofan""];",also checking resource link
+ALL_VERIFY_COMPARISON[admin1_name=""West Kordofan""];
+ALL_VERIFY_COMPARISON[provider_admin1_name=""West Kordofan""];",also checking resource link
 poverty-rate,pr-default,list of poverty rate records,,/api/v1/population-social/poverty-rate,full page,"location_code not null
 location_name not null
 resource_hdx_id not null
