@@ -35,13 +35,37 @@ ENDPOINT_ROUTER_LIST = [
     ('/api/v1/metadata/wfp-commodity', ''),  # 1101,
     ('/api/v1/metadata/wfp-market', ''),  # 4141,
     ('/api/v1/metadata/data-availability', ''),
+    ('/api/v2/affected-people/refugees-persons-of-concern', 'HND'),  # , 580074, 9140
+    ('/api/v2/affected-people/humanitarian-needs', 'HND'),  # 279811, 2589
+    ('/api/v2/affected-people/idps', ''),
+    ('/api/v2/affected-people/returnees', ''),
+    ('/api/v2/coordination-context/operational-presence', ''),  # 40472,
+    ('/api/v2/coordination-context/funding', ''),  # 434
+    ('/api/v2/coordination-context/conflict-event', 'HTI'),  # 1544173, 10081
+    ('/api/v2/coordination-context/national-risk', ''),  # 26,
+    ('/api/v2/food-security-nutrition-poverty/food-security', ''),  # 119757,
+    ('/api/v2/food-security-nutrition-poverty/food-prices-market-monitor', 'HTI'),  # 1094401, 15948
+    ('/api/v2/geography-infrastructure/baseline-population', ''),  # 237100,
+    ('/api/v2/food-security-nutrition-poverty/poverty-rate', ''),  # 630,
+    ('/api/v2/metadata/dataset', ''),  # 167,
+    ('/api/v2/metadata/resource', ''),  # 257,
+    ('/api/v2/metadata/location', ''),  # 250,
+    ('/api/v2/metadata/admin1', ''),  # 455,
+    ('/api/v2/metadata/admin2', ''),  # 5458,
+    ('/api/v2/metadata/currency', ''),  # 128,
+    ('/api/v2/metadata/org', ''),  # 2531,
+    ('/api/v2/metadata/org-type', ''),  # 19,
+    ('/api/v2/metadata/sector', ''),  # 20,
+    ('/api/v2/metadata/wfp-commodity', ''),  # 1101,
+    ('/api/v2/metadata/wfp-market', ''),  # 4141,
+    ('/api/v2/metadata/data-availability', ''),
 ]
 
 
 def test_fetch_data_from_hapi_with_paging():
     theme = 'metadata/admin2'
 
-    query_url = f'{BASE_URL}api/v1/{theme}?output_format=csv&app_identifier={HAPI_APP_IDENTIFIER}'
+    query_url = f'{BASE_URL}api/v2/{theme}?output_format=csv&app_identifier={HAPI_APP_IDENTIFIER}'
 
     results_1000 = fetch_data_from_hapi(query_url, limit=1000)
     results_10000 = fetch_data_from_hapi(query_url, limit=10000)
@@ -57,8 +81,8 @@ def test_endpoint_list_against_openapi_definition():
         openapi_json = json.load(openapi_json_url)
 
     openapi_paths = set(list(openapi_json['paths'].keys()))
-    openapi_paths.remove('/api/v1/encode_app_identifier')
-    openapi_paths.remove('/api/v1/util/version')
+    openapi_paths.remove('/api/v2/encode_app_identifier')
+    openapi_paths.remove('/api/v2/util/version')
 
     endpoint_paths = {x[0] for x in ENDPOINT_ROUTER_LIST}
 
