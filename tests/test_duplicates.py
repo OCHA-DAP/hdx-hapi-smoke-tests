@@ -11,30 +11,6 @@ from collections import Counter
 
 # ENDPOINT, Country filter, Full count (2024-08-13), Filtered count
 ENDPOINT_ROUTER_LIST = [
-    ('/api/v1/affected-people/refugees', 'HND'),  # , 580074, 9140
-    ('/api/v1/affected-people/humanitarian-needs', 'HND'),  # 279811, 2589
-    ('/api/v1/affected-people/idps', ''),
-    ('/api/v1/affected-people/returnees', ''),
-    ('/api/v1/coordination-context/operational-presence', ''),  # 40472,
-    ('/api/v1/coordination-context/funding', ''),  # 434
-    ('/api/v1/coordination-context/conflict-event', 'HTI'),  # 1544173, 10081
-    ('/api/v1/coordination-context/national-risk', ''),  # 26,
-    ('/api/v1/food/food-security', ''),  # 119757,
-    ('/api/v1/food/food-price', 'HTI'),  # 1094401, 15948
-    ('/api/v1/population-social/population', ''),  # 237100,
-    ('/api/v1/population-social/poverty-rate', ''),  # 630,
-    ('/api/v1/metadata/dataset', ''),  # 167,
-    ('/api/v1/metadata/resource', ''),  # 257,
-    ('/api/v1/metadata/location', ''),  # 250,
-    ('/api/v1/metadata/admin1', ''),  # 455,
-    ('/api/v1/metadata/admin2', ''),  # 5458,
-    ('/api/v1/metadata/currency', ''),  # 128,
-    ('/api/v1/metadata/org', ''),  # 2531,
-    ('/api/v1/metadata/org-type', ''),  # 19,
-    ('/api/v1/metadata/sector', ''),  # 20,
-    ('/api/v1/metadata/wfp-commodity', ''),  # 1101,
-    ('/api/v1/metadata/wfp-market', ''),  # 4141,
-    ('/api/v1/metadata/data-availability', ''),
     ('/api/v2/affected-people/refugees-persons-of-concern', 'HND'),  # , 580074, 9140
     ('/api/v2/affected-people/humanitarian-needs', 'HND'),  # 279811, 2589
     ('/api/v2/affected-people/idps', ''),
