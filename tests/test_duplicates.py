@@ -17,7 +17,7 @@ ENDPOINT_ROUTER_LIST = [
     ('/api/v2/affected-people/returnees', ''),
     ('/api/v2/coordination-context/operational-presence', ''),  # 40472,
     ('/api/v2/coordination-context/funding', ''),  # 434
-    ('/api/v2/coordination-context/conflict-event', 'HTI'),  # 1544173, 10081
+    ('/api/v2/coordination-context/conflict-events', 'HTI'),  # 1544173, 10081
     ('/api/v2/coordination-context/national-risk', ''),  # 26,
     ('/api/v2/food-security-nutrition-poverty/food-security', ''),  # 119757,
     ('/api/v2/food-security-nutrition-poverty/food-prices-market-monitor', 'HTI'),  # 1094401, 15948
