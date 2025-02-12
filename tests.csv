@@ -1,12 +1,12 @@
 location,Test ID,Description,Args [NOT USED],API call,# of results expected,Expected in each result object [NOT USED],Priority,Implemented?,Rules,Notes
-refugees,ref-default,List of refugees,,/api/v1/affected-people/refugees,full page,"origin_location_code not null
+refugees,ref-default,List of refugees,,/api/v2/affected-people/refugees-persons-of-concern,full page,"origin_location_code not null
 origin_location_name not null
 asylum_location_code not null
 asylum_location_name not null
 resource_hdx_id not null
 reference_period_start not null",TRUE,TRUE,"TOTAL_COUNT>50; 
 ALL_HAVE_PROPERTIES[resource_hdx_id, origin_location_code, origin_location_name, asylum_location_code, asylum_location_name, reference_period_start]; ",
-refugees,ref-filtered,List of filtered refugees,?origin_location_code=SSD&asylum_location_code=UGA&population_group=ASY&gender=all&age_range=all,/api/v1/affected-people/refugees?origin_location_code=SSD&asylum_location_code=UGA&population_group=ASY&gender=all&age_range=all,full page,"origin_location_code not null
+refugees,ref-filtered,List of filtered refugees,?origin_location_code=SSD&asylum_location_code=UGA&population_group=ASY&gender=all&age_range=all,/api/v2/affected-people/refugees-persons-of-concern?origin_location_code=SSD&asylum_location_code=UGA&population_group=ASY&gender=all&age_range=all,full page,"origin_location_code not null
 origin_location_name not null
 asylum_location_code not null
 asylum_location_name not null
@@ -20,14 +20,14 @@ ALL_VERIFY_COMPARISON[population_group=""ASY""];
 ALL_VERIFY_COMPARISON[gender=""all""];
 ALL_VERIFY_COMPARISON[age_range=""all""];
 ALL_VERIFY_COMPARISON[population>0];","There are lots of refugees in Uganda from South Sudan, so this should safely give us non-zero results."
-returnees,ret-default,List of returnees,,/api/v1/affected-people/returnees,full page,"origin_location_code not null
+returnees,ret-default,List of returnees,,/api/v2/affected-people/returnees,full page,"origin_location_code not null
 origin_location_name not null
 asylum_location_code not null
 asylum_location_name not null
 resource_hdx_id not null
 reference_period_start not null",FALSE,TRUE,"TOTAL_COUNT>50; 
 ALL_HAVE_PROPERTIES[resource_hdx_id, origin_location_code, origin_location_name, asylum_location_code, asylum_location_name, reference_period_start]; ",
-returnees,ret-filtered,List of filtered returnees,,/api/v1/affected-people/returnees?population_group=RET&gender=all&age_range=all&origin_location_code=SSD,full page,"origin_location_code not null
+returnees,ret-filtered,List of filtered returnees,,/api/v2/affected-people/returnees?population_group=RET&gender=all&age_range=all&origin_location_code=SSD,full page,"origin_location_code not null
 origin_location_name not null
 asylum_location_code not null
 asylum_location_name not null
@@ -41,41 +41,39 @@ ALL_VERIFY_COMPARISON[population_group=""RET""];
 ALL_VERIFY_COMPARISON[gender=""all""];
 ALL_VERIFY_COMPARISON[age_range=""all""];
 ALL_VERIFY_COMPARISON[population>0];",
-idps,idp-default,List of idps,,/api/v1/affected-people/idps,full page,,FALSE,TRUE,"TOTAL_COUNT>50; 
+idps,idp-default,List of idps,,/api/v2/affected-people/idps,full page,,FALSE,TRUE,"TOTAL_COUNT>50; 
 ALL_HAVE_PROPERTIES[resource_hdx_id, location_code, location_name, resource_hdx_id, assessment_type, reference_period_start]; ",
-idps,idp-filtered,List of filtered idps,,/api/v1/affected-people/idps?location_code=AFG,full page,,FALSE,TRUE,"TOTAL_COUNT>50; 
+idps,idp-filtered,List of filtered idps,,/api/v2/affected-people/idps?location_code=AFG,full page,,FALSE,TRUE,"TOTAL_COUNT>50; 
 ALL_HAVE_PROPERTIES[resource_hdx_id, location_code, location_name, resource_hdx_id, assessment_type, reference_period_start];
 ALL_VERIFY_COMPARISON[location_code=""AFG""];",
-humanitarian-needs,hn-default,List of humanitarian needs,,/api/v1/affected-people/humanitarian-needs,full page,"location_code not null
+humanitarian-needs,hn-default,List of humanitarian needs,,/api/v2/affected-people/humanitarian-needs,full page,"location_code not null
 location_name not null
 sector_code not null
 resource_hdx_id not null
 reference_period_start not null",TRUE,TRUE,"TOTAL_COUNT>50; 
 ALL_HAVE_PROPERTIES[location_code, location_name, sector_code, resource_hdx_id, reference_period_start];",
-humanitarian-needs,hn-filtered,filtered list of hum needs,?admin2_code=YE2901&gender=f&sector_code=HEA&population_status=INN,/api/v1/affected-people/humanitarian-needs?admin2_code=YE2901&gender=f&sector_code=HEA&population_status=INN,3,"location_code=""YEM""
+humanitarian-needs,hn-filtered,filtered list of hum needs,?admin2_code=YE2901&gender=f&sector_code=HEA&population_status=INN,/api/v2/affected-people/humanitarian-needs?admin1_code=YE29&category=Women&sector_code=HEA&population_status=INN,3,"location_code=""YEM""
 admin1_code=""YE29""
-admin2_code=""YE2901""
-population_group=""all""
+category=""Women""
 population_status=""inneed""
 population > 0",FALSE,TRUE,"TOTAL_COUNT>1; 
 ALL_HAVE_PROPERTIES[location_code, location_name, sector_code, resource_hdx_id, reference_period_start]; 
 ALL_VERIFY_COMPARISON[location_code=""YEM""];
 ALL_VERIFY_COMPARISON[admin1_code=""YE29""];
-ALL_VERIFY_COMPARISON[admin2_code=""YE2901""];
-ALL_VERIFY_COMPARISON[population_group=""all""];
+ALL_VERIFY_COMPARISON[category=""Women""];
 ALL_VERIFY_COMPARISON[population_status=""INN""];
 ALL_VERIFY_COMPARISON[population>0];","There should be two age ranges and ""all"", according to the source data. 
 
 The Yemen HNO doesn't disaggregate by population_group. 
 "
-operational-presence,op-default,list of operational presence,,/api/v1/coordination-context/operational-presence,full page,"location_code not null
+operational-presence,op-default,list of operational presence,,/api/v2/coordination-context/operational-presence,full page,"location_code not null
 location_name not null
 sector_code not null
 org_name not null
 resource_hdx_id not null
 reference_period_start not null",TRUE,TRUE,"TOTAL_COUNT>50; 
 ALL_HAVE_PROPERTIES[location_code, location_name, sector_code, org_name, resource_hdx_id, reference_period_start]; ",
-operational-presence,op-filtered,filtered list of operational presence,?org_acronym=CRS&sector_code=SHL&admin2_code=HT1024,/api/v1/coordination-context/operational-presence?org_acronym=CRS&sector_code=SHL&admin2_code=HT1024,>= 1,"org_acronym=""CRS""
+operational-presence,op-filtered,filtered list of operational presence,?org_acronym=CRS&sector_code=SHL&admin2_code=HT1025,/api/v2/coordination-context/operational-presence?org_acronym=CRS&sector_code=SHL&admin2_code=HT1025,>= 1,"org_acronym=""CRS""
 org_name=""Catholic Relief Services""
 org_type_code=""437""
 org_type_description=""International NGO""
@@ -85,8 +83,8 @@ location_code=""HTI""
 location_name=""Haiti""
 admin1_code=""HT10""
 admin1_name=""Nip""
-admin2_code=""HT1024""
-admin2_name=""Arnaud""
+admin2_code=""HT1025""
+admin2_name=""Plaisance du Sud""
 reference_period_start > 2020-01-01",FALSE,TRUE,"TOTAL_COUNT>0; 
 ALL_HAVE_PROPERTIES[location_code, location_name, sector_code, org_name, resource_hdx_id, reference_period_start];
 ALL_VERIFY_COMPARISON[org_acronym=""CRS""];
@@ -99,13 +97,12 @@ ALL_VERIFY_COMPARISON[location_name=""Haiti""];
 ALL_VERIFY_COMPARISON[admin1_code=""HT10""];
 ALL_VERIFY_COMPARISON[admin1_name=""Nippes""];
 ALL_VERIFY_COMPARISON[provider_admin1_name=""Nippes""];
-ALL_VERIFY_COMPARISON[admin2_code=""HT1024""];
-ALL_VERIFY_COMPARISON[admin2_name=""Arnaud""];
-ALL_VERIFY_COMPARISON[provider_admin2_name=""Arnaud""];
-","Assuming we're not backdating before 2020
+ALL_VERIFY_COMPARISON[admin2_code=""HT1025""];
+ALL_VERIFY_COMPARISON[admin2_name=""Plaisance du Sud""];
+ALL_VERIFY_COMPARISON[provider_admin2_name=""Plaisance du Sud""];","Assuming we're not backdating before 2020
 
 This also tests admin-level names"
-funding,fund-default,list of fundings,,/api/v1/coordination-context/funding,full page,"location_code not null
+funding,fund-default,list of fundings,,/api/v2/coordination-context/funding,full page,"location_code not null
 location_name not null
 appeal_code not null
 requirements_usd > 0
@@ -113,7 +110,7 @@ resource_hdx_id not null
 reference_period_start not null",TRUE,TRUE,"TOTAL_COUNT>50; 
 ALL_HAVE_PROPERTIES[location_code, location_name, appeal_code, resource_hdx_id, reference_period_start];
 ALL_VERIFY_COMPARISON[requirements_usd>=0];",
-funding,fund-filtered,list of fundings by location and appeal code,"?location_code=AFG&appeal_code=""HAFG24""",/api/v1/coordination-context/funding?location_code=AFG&appeal_code=HAFG24,1,"location_code=""AFG""
+funding,fund-filtered,list of fundings by location and appeal code,"?location_code=AFG&appeal_code=""HAFG24""",/api/v2/coordination-context/funding?location_code=AFG&appeal_code=HAFG24,1,"location_code=""AFG""
 appeal_code=""HAFG24""
 requirements_usd >= 1,000,000,000
 funding_usd >= 100,000,000
@@ -126,13 +123,16 @@ ALL_VERIFY_COMPARISON[appeal_code=""HAFG24""];
 ALL_VERIFY_COMPARISON[requirements_usd>=1000000000];
 ALL_VERIFY_COMPARISON[funding_usd>=100000000];
 ALL_VERIFY_COMPARISON[funding_pct>=10];",Assuming funding won't decrease excessively over the rest of 2024.
-conflict-event,ce-default,list of conflict events,,/api/v1/coordination-context/conflict-event,full page,"location_code not null
+funding,fund-date-filtered,list of fundings by start date and end date,?start_date=2023&end_date=2023,/api/v2/coordination-context/funding?start_date=2023&end_date=2023,full page,"reference_period_start >= ""2023-01-01""
+reference_period_end < ""2024-01-01""",FALSE,TRUE,"TOTAL_COUNT>0; 
+ALL_HAVE_PROPERTIES[location_code, location_name, appeal_code, resource_hdx_id, reference_period_start, reference_period_end];",
+conflict-event,ce-default,list of conflict events,,/api/v2/coordination-context/conflict-events,full page,"location_code not null
 location_name not null
 event_type not null
 resource_hdx_id not null
 reference_period_start not null",TRUE,TRUE,"TOTAL_COUNT>50; 
 ALL_HAVE_PROPERTIES[location_code, location_name, event_type, resource_hdx_id, reference_period_start];",
-conflict-event,ce-filtered,list of conflict events by location code,?location_code=TCD,/api/v1/coordination-context/conflict-event?location_code=TCD,>1,"location_code=""TCD""
+conflict-event,ce-filtered,list of conflict events by location code,?location_code=TCD,/api/v2/coordination-context/conflict-events?location_code=TCD,>1,"location_code=""TCD""
 location_name=""Chad""
 events >= 0 OR fatalities >= 0",FALSE,FALSE,"TOTAL_COUNT>1; 
 ALL_HAVE_PROPERTIES[location_code, location_name, event_type, resource_hdx_id, reference_period_start];
@@ -140,7 +140,16 @@ ALL_VERIFY_COMPARISON[location_code=""TCD""];
 ALL_VERIFY_COMPARISON[location_name=""Chad""];
 ALL_VERIFY_COMPARISON[events>=0];
 ALL_VERIFY_COMPARISON[fatalities>=0];",
-national-risk,nr-default,list of national risks,,/api/v1/coordination-context/national-risk,full page,"location_code not null
+conflict-event,ce-date-filtered,list of conflict events by location code and date,?location_code=TCD&end_date=1997,/api/v2/coordination-context/conflict-events?location_code=TCD&end_date=1997,>1,"location_code=""TCD""
+location_name=""Chad""
+events >= 0 OR fatalities >= 0
+reference_period_end < ""1998-01-01""",FALSE,FALSE,"TOTAL_COUNT>1; 
+ALL_HAVE_PROPERTIES[location_code, location_name, event_type, resource_hdx_id, reference_period_start, reference_period_end];
+ALL_VERIFY_COMPARISON[location_code=""TCD""];
+ALL_VERIFY_COMPARISON[location_name=""Chad""];
+ALL_VERIFY_COMPARISON[events>=0];
+ALL_VERIFY_COMPARISON[fatalities>=0];",
+national-risk,nr-default,list of national risks,,/api/v2/coordination-context/national-risk,full page,"location_code not null
 location_name not null
 risk_class not null
 global_rank in range 1,250
@@ -149,7 +158,7 @@ reference_period_start not null",TRUE,TRUE,"TOTAL_COUNT>20;
 ALL_HAVE_PROPERTIES[location_code, location_name, risk_class, resource_hdx_id, reference_period_start];
 ALL_VERIFY_COMPARISON[global_rank>0];
 ALL_VERIFY_COMPARISON[global_rank<250];",
-national-risk,nr-filtered,list of national risks by code,?location_code=PSE,/api/v1/coordination-context/national-risk?location_code=PSE,1,"location_code=""PSE""
+national-risk,nr-filtered,list of national risks by code,?location_code=PSE,/api/v2/coordination-context/national-risk?location_code=PSE,1,"location_code=""PSE""
 risk_class in range 1..5
 global_rank in range 1..250
 overall_risk in range 0.0..10.0
@@ -171,7 +180,7 @@ ALL_VERIFY_COMPARISON[vulnerability_risk>0];
 ALL_VERIFY_COMPARISON[vulnerability_risk<10];
 ALL_VERIFY_COMPARISON[coping_capacity_risk>0];
 ALL_VERIFY_COMPARISON[coping_capacity_risk<10];",
-food-security,fs-default,list of food security records,,/api/v1/food/food-security,full page,"location_code not null
+food-security,fs-default,list of food security records,,/api/v2/food-security-nutrition-poverty/food-security,full page,"location_code not null
 location_name not null
 ipc_phase not null
 ipc_type not null
@@ -180,7 +189,7 @@ resource_hdx_id not null
 reference_period_start not null",TRUE,TRUE,"TOTAL_COUNT>50; 
 ALL_HAVE_PROPERTIES[location_code, location_name, ipc_phase, ipc_type, resource_hdx_id, reference_period_start];
 ALL_VERIFY_COMPARISON[population_in_phase>=0];",
-food-security,fs-filtered,list of food security records by admin1 code and ipc type,?admin1_code=NE008&ipc_phase=3&ipc_type=current,/api/v1/food/food-security?admin1_code=NE008&ipc_phase=3&ipc_type=current,>=1,"location_code=""BGD""
+food-security,fs-filtered,list of food security records by admin1 code and ipc type,?admin1_code=NE008&ipc_phase=3&ipc_type=current,/api/v2/food-security-nutrition-poverty/food-security?admin1_code=NE008&ipc_phase=3&ipc_type=current,>=1,"location_code=""BGD""
 admin1_code=""BD55""
 admin1_name=""Rangpur""
 ipc_phase=""3""
@@ -196,7 +205,7 @@ ALL_VERIFY_COMPARISON[provider_admin1_name=""Niamey""];
 ALL_VERIFY_COMPARISON[ipc_phase=""3""];
 ALL_VERIFY_COMPARISON[ipc_type=""current""];
 ALL_VERIFY_COMPARISON[population_fraction_in_phase>=0];",Also tests admin1_name from CODs
-food-price,fp-default,list of food prices,,/api/v1/food/food-price,full page,"location_code not null
+food-price,fp-default,list of food prices,,/api/v2/food-security-nutrition-poverty/food-prices-market-monitor,full page,"location_code not null
 location_name not null
 currency_code not null
 price >= 0
@@ -204,7 +213,7 @@ resource_hdx_id not null
 reference_period_start not null",TRUE,TRUE,"TOTAL_COUNT>50; 
 ALL_HAVE_PROPERTIES[location_code, location_name, currency_code, resource_hdx_id, reference_period_start];
 ALL_VERIFY_COMPARISON[price>=0];",
-food-price,fp-filtered,list of food prices by country code,?location_code=ETH,/api/v1/food/food-price?location_code=ETH,full page,"location_code=""ETH""
+food-price,fp-filtered,list of food prices by country code,?location_code=ETH,/api/v2/food-security-nutrition-poverty/food-prices-market-monitor?location_code=ETH,full page,"location_code=""ETH""
 lat in range 3.0..15.0
 lon in range 33..48
 market_code not null
@@ -227,7 +236,23 @@ ALL_VERIFY_COMPARISON[lon>33];
 ALL_VERIFY_COMPARISON[lon<48];","Assumption that all prices are in ETB might be wrong.
 
 latlon bounding box might be too tight"
-population,pop-default,list of population records,,/api/v1/population-social/population,full page,"location_code not null
+food-price,fp-date-filtered,list of food prices by country code and date,?location_code=AFG&start_date=2024-01-01,/api/v2/food-security-nutrition-poverty/food-prices-market-monitor?location_code=AFG&start_date=2024-01-01,full page,"location_code=""AFG""
+market_code not null
+market_name not null
+commodity_code not null
+commodity_name not null
+commodity_category not null
+currency_code=""AFN""
+unit not null
+price_flag not null
+price_type not null
+price >= 0.0
+reference_period_start >= ""2024-01-01""",FALSE,TRUE,"TOTAL_COUNT>50; 
+ALL_HAVE_PROPERTIES[location_code, location_name, currency_code, resource_hdx_id, reference_period_start, market_code, market_name, commodity_code, commodity_name, commodity_category, unit, price_flag, price_type];
+ALL_VERIFY_COMPARISON[price>=0];
+ALL_VERIFY_COMPARISON[location_code=""AFG""];
+ALL_VERIFY_COMPARISON[currency_code=""AFN""];",Assumption that all prices are in AFN might be wrong.
+population,pop-default,list of population records,,/api/v2/geography-infrastructure/baseline-population,full page,"location_code not null
 location_name not null
 gender not null
 age_range not null
@@ -236,7 +261,7 @@ resource_hdx_id not null
 reference_period_start not null",TRUE,TRUE,"TOTAL_COUNT>50; 
 ALL_HAVE_PROPERTIES[location_code, location_name, gender, age_range, resource_hdx_id, reference_period_start];
 ALL_VERIFY_COMPARISON[population>=0];",
-population,pop-filtered,list of population by admin1 code,?admin1_code=SD18,/api/v1/population-social/population?admin1_code=SD18,>10,"location_code=""SDN""
+population,pop-filtered,list of population by admin1 code,?admin1_code=SD18,/api/v2/geography-infrastructure/baseline-population?admin1_code=SD18,>10,"location_code=""SDN""
 location_name=""Sudan""
 admin1_code=""SD18""
 admin1_name=""West Kordofan""
@@ -250,12 +275,12 @@ ALL_VERIFY_COMPARISON[location_name=""Sudan""];
 ALL_VERIFY_COMPARISON[admin1_code=""SD18""];
 ALL_VERIFY_COMPARISON[admin1_name=""West Kordofan""];
 ALL_VERIFY_COMPARISON[provider_admin1_name=""West Kordofan""];",also checking resource link
-poverty-rate,pr-default,list of poverty rate records,,/api/v1/population-social/poverty-rate,full page,"location_code not null
+poverty-rate,pr-default,list of poverty rate records,,/api/v2/food-security-nutrition-poverty/poverty-rate,full page,"location_code not null
 location_name not null
 resource_hdx_id not null
 reference_period_start not null",TRUE,TRUE,"TOTAL_COUNT>50; 
 ALL_HAVE_PROPERTIES[location_code, location_name, resource_hdx_id, reference_period_start];",
-poverty-rate,pr-filtered,list of poverty rate records by country code,?location_code=AFG,/api/v1/population-social/poverty-rate?location_code=AFG,>=8,"location_code=""AFG""
+poverty-rate,pr-filtered,list of poverty rate records by country code,?location_code=AFG,/api/v2/food-security-nutrition-poverty/poverty-rate?location_code=AFG,>=8,"location_code=""AFG""
 location_name=""Afghanistan""
 mpi in range 0.0..1.0
 headcount_ratio in range 0.0..100.0
@@ -273,57 +298,57 @@ ALL_VERIFY_COMPARISON[vulnerable_to_poverty>=0];
 ALL_VERIFY_COMPARISON[vulnerable_to_poverty<=100];
 ALL_VERIFY_COMPARISON[in_severe_poverty>=0];
 ALL_VERIFY_COMPARISON[in_severe_poverty<=100];",
-dataset,ds-default,list of datasets,,/api/v1/metadata/dataset,full page,"hdx_id not null
+dataset,ds-default,list of datasets,,/api/v2/metadata/dataset,full page,"hdx_id not null
 hdx_stub not null
 hdx_provider_name not null",TRUE,TRUE,"TOTAL_COUNT>50; 
 ALL_HAVE_PROPERTIES[dataset_hdx_id, dataset_hdx_stub, hdx_provider_name];",
-resource,res-default,list of resources,,/api/v1/metadata/resource,full page,"hdx_id not null
+resource,res-default,list of resources,,/api/v2/metadata/resource,full page,"hdx_id not null
 dataset_hdx_id not null
 hapi_updated_date > 2010-01-01
 hapi_updated_date < 2030-01-01",TRUE,TRUE,"TOTAL_COUNT>50; 
 ALL_HAVE_PROPERTIES[resource_hdx_id, dataset_hdx_id];",
-sector,sec-default,list of sectors,,/api/v1/metadata/sector,>= 15,"code not null
+sector,sec-default,list of sectors,,/api/v2/metadata/sector,>= 15,"code not null
 name not null",TRUE,TRUE,"TOTAL_COUNT>14; 
 ALL_HAVE_PROPERTIES[code, name];",
-org-type,ot-default,list of org types,,/api/v1/metadata/org-type,>= 14,"code not null
+org-type,ot-default,list of org types,,/api/v2/metadata/org-type,>= 14,"code not null
 description not null",TRUE,TRUE,"TOTAL_COUNT>13; 
 ALL_HAVE_PROPERTIES[code, description];",
-org-type,ot-code,list of org types by code,?code=437,/api/v1/metadata/org-type?code=437,1,"code=""437""
+org-type,ot-code,list of org types by code,?code=437,/api/v2/metadata/org-type?code=437,1,"code=""437""
 description=""International NGO""",FALSE,TRUE,"TOTAL_COUNT=1; 
 ALL_HAVE_PROPERTIES[code, description];
 ALL_VERIFY_COMPARISON[code=""437""];
 ALL_VERIFY_COMPARISON[description=""International NGO""];",
-org,org-default,list of organizations,,/api/v1/metadata/org,full page,"acronym not null
+org,org-default,list of organizations,,/api/v2/metadata/org,full page,"acronym not null
 name not null",TRUE,TRUE,"TOTAL_COUNT>50; 
 ALL_HAVE_PROPERTIES[acronym, name];",
-org,org-acronym,list of organizations by acronym,?acronym=IRC,/api/v1/metadata/org?acronym=IRC,1,"acronym=""IRC""
+org,org-acronym,list of organizations by acronym,?acronym=IRC,/api/v2/metadata/org?acronym=IRC,1,"acronym=""IRC""
 name=""International Rescue Committee""
 org_type_code=""437""",FALSE,TRUE,"TOTAL_COUNT=1; 
 ALL_HAVE_PROPERTIES[acronym, name];
 ALL_VERIFY_COMPARISON[acronym=""IRC""];
 ALL_VERIFY_COMPARISON[name=""International Rescue Committee""];
 ALL_VERIFY_COMPARISON[org_type_code=""437""];",
-location,loc-default,list of locations,,/api/v1/metadata/location,full page,"code not null
+location,loc-default,list of locations,,/api/v2/metadata/location,full page,"code not null
 name not null",TRUE,TRUE,"TOTAL_COUNT>50; 
 ALL_HAVE_PROPERTIES[code, name];",
-location,loc-code,list of locations by code,?code=mli,/api/v1/metadata/location?code=mli,1,"code=""MLI""
+location,loc-code,list of locations by code,?code=mli,/api/v2/metadata/location?code=mli,1,"code=""MLI""
 name=""Mali""",FALSE,TRUE,"TOTAL_COUNT=1; 
 ALL_HAVE_PROPERTIES[code, name];
 ALL_VERIFY_COMPARISON[name=""Mali""];
 ALL_VERIFY_COMPARISON[code=""MLI""];",also tests case-insensitivity
-location,loc-name,list of locations by name,?name=Mali,/api/v1/metadata/location?name=Mali,1,"code=""MLI""
+location,loc-name,list of locations by name,?name=Mali,/api/v2/metadata/location?name=Mali,1,"code=""MLI""
 name=""Mali""",FALSE,TRUE,"TOTAL_COUNT=2; 
 ALL_HAVE_PROPERTIES[code, name];",
-admin1,adm1-default,list of adm1,,/api/v1/metadata/admin1,full page,"code not null
+admin1,adm1-default,list of adm1,,/api/v2/metadata/admin1,full page,"code not null
 name not null
 location_code not null",TRUE,TRUE,"TOTAL_COUNT>50; 
 ALL_HAVE_PROPERTIES[code, name, location_code];",
-admin1,adm1-loc,list of adm1 by location code,?location_code=AFG,/api/v1/metadata/admin1?location_code=AFG,> 10,"code not null
+admin1,adm1-loc,list of adm1 by location code,?location_code=AFG,/api/v2/metadata/admin1?location_code=AFG,> 10,"code not null
 name not null
 location_code=""AFG"" in every object",FALSE,TRUE,"TOTAL_COUNT>10; 
 ALL_HAVE_PROPERTIES[code, name, location_code];
 ALL_VERIFY_COMPARISON[location_code=""AFG""];",
-admin1,adm1-code,list of adm1 by code,?code=AF02,/api/v1/metadata/admin1?code=AF02,1,"code=""AF02""
+admin1,adm1-code,list of adm1 by code,?code=AF02,/api/v2/metadata/admin1?code=AF02,1,"code=""AF02""
 name=""Kapisa""
 location_code=""AFG""
 location_name=""Afghanistan""",FALSE,TRUE,"TOTAL_COUNT=1; 
@@ -332,7 +357,7 @@ ALL_VERIFY_COMPARISON[location_code=""AFG""];
 ALL_VERIFY_COMPARISON[location_name=""Afghanistan""];
 ALL_VERIFY_COMPARISON[name=""Kapisa""];
 ALL_VERIFY_COMPARISON[code=""AF02""];",
-admin1,adm1-name,list of adm1 by name and location code,?name=Kapisa&location_code=AFG,/api/v1/metadata/admin1?name=Kapisa&location_code=AFG,1,"1 result only
+admin1,adm1-name,list of adm1 by name and location code,?name=Kapisa&location_code=AFG,/api/v2/metadata/admin1?name=Kapisa&location_code=AFG,1,"1 result only
 code=""AF02""
 name=""Kapisa""
 location_code=""AFG""
@@ -342,50 +367,50 @@ ALL_VERIFY_COMPARISON[location_code=""AFG""];
 ALL_VERIFY_COMPARISON[location_name=""Afghanistan""];
 ALL_VERIFY_COMPARISON[name=""Kapisa""];
 ALL_VERIFY_COMPARISON[code=""AF02""];",
-admin2,adm2-default,list of adm2,,/api/v1/metadata/admin2,,"code not null
+admin2,adm2-default,list of adm2,,/api/v2/metadata/admin2,,"code not null
 name not null
 location_code not null
 admin1_code not null",TRUE,TRUE,"TOTAL_COUNT>50; 
 ALL_HAVE_PROPERTIES[code, name, location_code, admin1_code];",
-admin2,adm2-loc,list of admin2 filtered by location code,?location_code=AFG,/api/v1/metadata/admin2?location_code=AFG,full page,"location_code=""AFG""
+admin2,adm2-loc,list of admin2 filtered by location code,?location_code=AFG,/api/v2/metadata/admin2?location_code=AFG,full page,"location_code=""AFG""
 code starts with ""AF""",FALSE,TRUE,"TOTAL_COUNT>50; 
 ALL_HAVE_PROPERTIES[code, name, location_code, admin1_code];
 ALL_VERIFY_COMPARISON[location_code=""AFG""];",
-admin2,adm2-adm1,list of admin2 filtered by admin1_code,?admin1_code=AF02,/api/v1/metadata/admin2?admin1_code=AF02,>1,"location_code=""AFG""
+admin2,adm2-adm1,list of admin2 filtered by admin1_code,?admin1_code=AF02,/api/v2/metadata/admin2?admin1_code=AF02,>1,"location_code=""AFG""
 admin1_code=""AF02""
 code starts with ""AF""",FALSE,TRUE,"TOTAL_COUNT>1; 
 ALL_HAVE_PROPERTIES[code, name, location_code, admin1_code];
 ALL_VERIFY_COMPARISON[location_code=""AFG""];
 ALL_VERIFY_COMPARISON[admin1_code=""AF02""];",
-wfp_commodity,wc-default,list of wfp-commodities,,/api/v1/metadata/wfp-commodity,full page,"code not null
+wfp_commodity,wc-default,list of wfp-commodities,,/api/v2/metadata/wfp-commodity,full page,"code not null
 category not null
 name not null",TRUE,TRUE,"TOTAL_COUNT>50; 
 ALL_HAVE_PROPERTIES[code, name, category];",
-wfp_market,wm-default,list of wfp markets,,/api/v1/metadata/wfp-market,full page,"code not null
+wfp_market,wm-default,list of wfp markets,,/api/v2/metadata/wfp-market,full page,"code not null
 location_code not null
 lat in range -90.0,90.0
 lon in range -180.0,180.0",TRUE,TRUE,"TOTAL_COUNT>50; 
 ALL_HAVE_PROPERTIES[code, location_code];",
-currency,cur-default,list of currencies,,/api/v1/metadata/currency,full page,"code not null
+currency,cur-default,list of currencies,,/api/v2/metadata/currency,full page,"code not null
 name not null",TRUE,TRUE,"TOTAL_COUNT>50; 
 ALL_HAVE_PROPERTIES[code, name];",
-currency,cur-code,list of filtered currency,?code=usd,/api/v1/metadata/currency?code=usd,1,"code=""USD""
+currency,cur-code,list of filtered currency,?code=usd,/api/v2/metadata/currency?code=usd,1,"code=""USD""
 name=""United States dollar""",FALSE,TRUE,"TOTAL_COUNT=1; 
 ALL_HAVE_PROPERTIES[code, name];
 ALL_VERIFY_COMPARISON[code=""USD""];
 ALL_VERIFY_COMPARISON[name=""United States Dollar""];",also tests case-insensitivity
-currency,cur-code,list of filtered currency case isensitive,?code=Usd,/api/v1/metadata/currency?code=Usd,1,"code=""USD""
+currency,cur-code,list of filtered currency case isensitive,?code=Usd,/api/v2/metadata/currency?code=Usd,1,"code=""USD""
 name=""United States dollar""",FALSE,TRUE,"TOTAL_COUNT=1; 
 ALL_HAVE_PROPERTIES[code, name];
 ALL_VERIFY_COMPARISON[code=""USD""];
 ALL_VERIFY_COMPARISON[name=""United States Dollar""];",also tests case-insensitivity
-data-availability,dat-default,List of data-availability,,/api/v1/metadata/data-availability,full page,,FALSE,TRUE,"TOTAL_COUNT>50; 
+data-availability,dat-default,List of data-availability,,/api/v2/metadata/data-availability,full page,,FALSE,TRUE,"TOTAL_COUNT>50; 
 ALL_HAVE_PROPERTIES[category, subcategory, location_code, location_name,  hapi_updated_date];",
-data-availability,dat-filtered,List of filtered data-availability,,/api/v1/metadata/data-availability?subcategory=refugees&location_code=AFG,1,,FALSE,TRUE,"TOTAL_COUNT = 1; 
+data-availability,dat-filtered,List of filtered data-availability,,/api/v2/metadata/data-availability?subcategory=refugees-persons-of-concern&location_code=AFG,1,,FALSE,TRUE,"TOTAL_COUNT = 1; 
 ALL_HAVE_PROPERTIES[category, subcategory, location_code, location_name,  hapi_updated_date];
 ALL_VERIFY_COMPARISON[category=""affected-people""]; 
 ALL_VERIFY_COMPARISON[location_code=""AFG""];
-ALL_VERIFY_COMPARISON[subcategory=""refugees""];",
+ALL_VERIFY_COMPARISON[subcategory=""refugees-persons-of-concern""];",
 ,,,,,,,FALSE,FALSE,,
 ,,,,,,,FALSE,FALSE,,
 ,,,,,,,FALSE,FALSE,,
@@ -1163,7 +1188,7 @@ ALL_VERIFY_COMPARISON[subcategory=""refugees""];",
 ,,,,,,,FALSE,FALSE,,
 ,,,,,,,FALSE,FALSE,,
 ,,,,,,,FALSE,FALSE,,
-,,,,,,Option 2,FALSE,FALSE,,
+,,,,,,,FALSE,FALSE,,
 ,,,,,,,FALSE,FALSE,,
 ,,,,,,,FALSE,FALSE,,
 ,,,,,,,FALSE,FALSE,,
