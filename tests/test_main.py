@@ -22,7 +22,7 @@ DOWNLOAD_PATH = 'tests.csv'
 # if os.path.exists(DOWNLOAD_PATH):
 #     os.remove(DOWNLOAD_PATH)
 
-#download_csv(TESTS_SPREADSHEET_URL, DOWNLOAD_PATH)
+download_csv(TESTS_SPREADSHEET_URL, DOWNLOAD_PATH)
 data_all_columns = read_data_from_csv(DOWNLOAD_PATH)
 data = [[row[HEADER_DESCRIPTION], row] for row in data_all_columns if row[HEADER_ENABLED] == 'TRUE']
 
