@@ -19,8 +19,8 @@ from util.rules import parse_rules
 
 DOWNLOAD_PATH = 'tests.csv'
 
-if os.path.exists(DOWNLOAD_PATH):
-    os.remove(DOWNLOAD_PATH)
+#if os.path.exists(DOWNLOAD_PATH):
+    #os.remove(DOWNLOAD_PATH)
 
 download_csv(TESTS_SPREADSHEET_URL, DOWNLOAD_PATH)
 data_all_columns = read_data_from_csv(DOWNLOAD_PATH)
