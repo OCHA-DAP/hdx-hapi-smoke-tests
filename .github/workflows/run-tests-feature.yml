@@ -32,6 +32,5 @@ jobs:
       - name: Test with pytest
         run: pytest
         env:
-            TESTS_SPREADSHEET_URL: 'https://docs.google.com/spreadsheets/d/1cBrNC8sV9HK9rXJKi9gOZY6f76YAEocnxHPhMwV67jE/edit?gid=185760317#gid=185760317'
             BASE_URL: ${{ secrets.BASE_URL_FEATURE }}
             HAPI_APP_IDENTIFIER: ${{ secrets.HAPI_APP_IDENTIFIER }}
