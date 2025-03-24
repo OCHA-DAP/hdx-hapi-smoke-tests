@@ -35,6 +35,7 @@ ENDPOINT_ROUTER_LIST = [
     ('/api/v2/metadata/wfp-commodity', ''),  # 1101,
     ('/api/v2/metadata/wfp-market', ''),  # 4141,
     ('/api/v2/metadata/data-availability', ''),
+    ('/api/v2/climate/rainfall', ''),
 ]
 
 
