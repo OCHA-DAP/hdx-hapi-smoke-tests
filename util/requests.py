@@ -4,12 +4,14 @@ import requests
 import time
 from urllib import request
 
+from util.config import HAPI_USER_AGENT
+
 
 def download_csv(url: str, path: str):
     """
     Download a CSV file from the given URL and save it to the given path
     """
-    response = requests.get(url, timeout=50)
+    response = requests.get(url, timeout=50, headers={'User-Agent': HAPI_USER_AGENT})
     with open(path, 'wb') as mapping_file:
         mapping_file.write(response.content)
 
@@ -39,8 +41,10 @@ def fetch_data_from_hapi(query_url, limit=1000):
     - list: A list of fetched results.
     """
 
+    headers = {'User-Agent': HAPI_USER_AGENT}
+
     if 'encode_app_identifier' in query_url:
-        with request.urlopen(query_url) as response:
+        with request.urlopen(request.Request(query_url, headers=headers)) as response:
             json_response = json.loads(response.read())
 
         return json_response
@@ -52,8 +56,9 @@ def fetch_data_from_hapi(query_url, limit=1000):
     while True:
         offset = idx * limit
         url = f'{query_url}&offset={offset}&limit={limit}'
+        req = request.Request(url, headers=headers)
 
-        with request.urlopen(url) as response:
+        with request.urlopen(req) as response:
             print(f'Getting results {offset} to {offset+limit-1}')
             print(f'{url}', flush=True)
             encoding = response.headers.get_content_charset()

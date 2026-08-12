@@ -3,6 +3,9 @@ import os
 
 BASE_URL = os.getenv('BASE_URL', 'https://HAPI_SERVER_URL/')
 HAPI_APP_IDENTIFIER = os.getenv('HAPI_APP_IDENTIFIER', '')
+HAPI_USER_AGENT = os.getenv('HAPI_USER_AGENT', 'hdx-hapi-smoke-tests')
+
+
 TESTS_SPREADSHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSfC6zhjjg1MmwoBV2swtKt3mIseFLkzwHgsdJkt6E7wyGW0JdgoV_sbQhlk1CFp8BIt4cJ5-_lKKn9/pub?gid=185760317&single=true&output=csv'
 HEADER_API_CALL = 'API call'
 HEADER_RULES = 'Rules'
