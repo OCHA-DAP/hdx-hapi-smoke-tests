@@ -3,7 +3,7 @@ import pytest
 
 from urllib import request
 
-from util.config import BASE_URL, HAPI_APP_IDENTIFIER
+from util.config import BASE_URL, HAPI_APP_IDENTIFIER, HAPI_USER_AGENT
 
 from util.requests import fetch_data_from_hapi
 
@@ -54,7 +54,8 @@ def test_fetch_data_from_hapi_with_paging():
 
 def test_endpoint_list_against_openapi_definition():
     print(f'{BASE_URL}openapi.json', flush=True)
-    with request.urlopen(f'{BASE_URL}openapi.json') as openapi_json_url:
+    api_request = request.Request(f'{BASE_URL}openapi.json', headers={'User-Agent': HAPI_USER_AGENT})
+    with request.urlopen(api_request) as openapi_json_url:
         openapi_json = json.load(openapi_json_url)
 
     openapi_paths = set(list(openapi_json['paths'].keys()))

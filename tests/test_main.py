@@ -1,4 +1,3 @@
-import os
 from io import StringIO
 import requests
 import pytest
@@ -11,6 +10,7 @@ from util.config import (
     HEADER_DESCRIPTION,
     HEADER_ENABLED,
     HAPI_APP_IDENTIFIER,
+    HAPI_USER_AGENT,
 )
 
 from util.requests import download_csv, read_data_from_csv
@@ -41,7 +41,7 @@ def test_json_rest_api(description, test_info):
         relative_url += f'?app_identifier={HAPI_APP_IDENTIFIER}'
     endpoint_url = f'{BASE_URL}{relative_url}'
 
-    response = requests.get(endpoint_url)
+    response = requests.get(endpoint_url, headers={'User-Agent': HAPI_USER_AGENT})
     response_dict = response.json()
     object_list = response_dict.get('data', [])
 
@@ -64,7 +64,7 @@ def test_json_rest_api(description, test_info):
 def test_csv_rest_api():
     endpoint_url = f'{BASE_URL}api/v1/metadata/dataset?output_format=csv&app_identifier={HAPI_APP_IDENTIFIER}'
     print(endpoint_url, flush=True)
-    response = requests.get(endpoint_url)
+    response = requests.get(endpoint_url, headers={'User-Agent': HAPI_USER_AGENT})
 
     assert response.status_code == 200
 

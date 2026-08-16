@@ -34,3 +34,4 @@ jobs:
         env:
             BASE_URL: ${{ secrets.BASE_URL_DEMO }}
             HAPI_APP_IDENTIFIER: ${{ secrets.HAPI_APP_IDENTIFIER }}
+            HAPI_USER_AGENT: ${{ secrets.HAPI_USER_AGENT }}
